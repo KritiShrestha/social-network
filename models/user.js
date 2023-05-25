@@ -1,4 +1,6 @@
+// Require schema and model from mongoose
 const mongoose = require('mongoose');
+const Thought = require('./ThoughtSchema')
 
 // Construct a new instance of the schema class
 const UserSchema = new mongoose.Schema({
@@ -15,6 +17,13 @@ const UserSchema = new mongoose.Schema({
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please fill a valid email address",
       ],
+
+thoughts: [{
+    type: mongoose.Schema.objectId,
+    ref: 'Thought'
+}
+]
+     
     },
   
   
