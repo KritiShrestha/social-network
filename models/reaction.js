@@ -8,14 +8,17 @@ const ReactionSchema = new mongoose.Schema({
             required: true, 
             maxlength:280,
         },
+
         username: {
             type: String,
         required: true, 
         },
+
         createdAt:{type: Date, 
                     default: Date.now},
                     get: function (timeStamp){
                         return moment(timeStamp).format('YYYY-MM-DD');
                     }
 
-})
+});
+module.exports= ReactionSchema;

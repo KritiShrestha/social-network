@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const ReactionSchema = require('./reaction');
 
 // Construct a new instance of the schema class
 const ThoughtSchema = new mongoose.Schema({
@@ -20,7 +21,11 @@ const ThoughtSchema = new mongoose.Schema({
         required: true,
 
     },
-// reactions:{}
-})
+    reactions:[ReactionSchema]
+});
+ThoughtSchema.virtual('reactionCount').get (function (){
+    return this.reactions.length;
+});
+const Thought = ('Thought', ThoughtSchema);
 
-module.exports=ThoughtSchema
+module.exports = Thought;

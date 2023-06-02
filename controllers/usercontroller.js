@@ -1,4 +1,7 @@
 const { User } = require('../models');
+const express = require('express');
+const app = express();
+
 module.exports = {
     // Get all users
     async getUsers(req, res) {
@@ -37,7 +40,7 @@ module.exports = {
     //Update a user 
     async updateUser(req, res) {
         try {
-          const User = await User.findOneAndUpdate( {_id: req.params.userId});
+          const user = await User.findOneAndUpdate( {_id: req.params.userId});
           if(!user){
             return res.status(404).json({ message: 'No user with that ID' });
           }
@@ -60,5 +63,36 @@ module.exports = {
           res.status(500).json(err);
         }
       },
-  };
   
+  //Add a new friend
+  async addFriend (req, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId},
+        {$addToSet:{friends:req.params.friendId}},
+        {new:true}
+        );
+      if (!user)
+      await res.json({ message: 'No user with this ID' })
+      else res.json('New friend added')
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  //Delete a friend
+  async deleteFriend (req, res) {
+    try {
+      const user = await User.findOneAndDelete(
+        { _id: req.params.userId},
+        {$pull:{friends:req.params.friendId}},
+        {new:true}
+        );
+      if (!user)
+      await res.json({ message: 'No user with this ID' })
+      else res.json({ message: 'friend removed'})
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+}
