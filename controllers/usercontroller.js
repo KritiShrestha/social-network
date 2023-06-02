@@ -44,7 +44,7 @@ module.exports = {
           if(!user){
             return res.status(404).json({ message: 'No user with that ID' });
           }
-     
+            res.json(user);
         } catch (err) {
           res.status(500).json(err);
         }
@@ -56,8 +56,8 @@ module.exports = {
         try {
           const user = await User.findOneAndDelete({ _id: req.params.userId });
     
-          if (!user) 
-          await Application.deleteMany({ _id: { $in: user.applications } });
+          if (!user) {return res.status(404).json({ message: 'No user with that ID' });}
+          Application.deleteMany({ _id: { $in: user.applications } });
           res.json({ message: 'User and associated apps deleted!' })
         } catch (err) {
           res.status(500).json(err);
@@ -72,9 +72,10 @@ module.exports = {
         {$addToSet:{friends:req.params.friendId}},
         {new:true}
         );
-      if (!user)
-      await res.json({ message: 'No user with this ID' })
-      else res.json('New friend added')
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+       res.json('New friend added')
     } catch (err) {
       res.status(500).json(err);
     }
