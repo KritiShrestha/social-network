@@ -1,4 +1,6 @@
-const {User, Thought} = require ('../models');
+// const {User, Thought} = require ('../models');
+const User = require('../models/user')
+const Thought = require('../models/thought')
 
 module.exports = {
     // Get all thoughts
@@ -14,7 +16,7 @@ module.exports = {
     //get a single thought by its id:
         async getSingleThought(req, res) {
           try {
-            const thought = await Thought.findone({_id: req.params.thoughtId}).select('-_v');
+            const thought = await Thought.findOne({_id: req.params.thoughtId}).select('-_v');
             if (!thought) {
                 return res.status(404).json({ message: 'No thought with that ID' });
               }
@@ -48,14 +50,14 @@ module.exports = {
 
       async updateThought(req, res) {
         try {
-          const thought = await Thought.findOneAndUpdate({_id: req.params.thoughtId}).select('-_v');
+          const thought = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+          ).select('-__v');
           if (!thought) {
-              return res.status(404).json(
-                { message: 'No thought with that ID' },
-                { $set: req.body },
-                { runValidators: true, new: true }
-              );
-            }
+            return res.status(404).json({ message: 'No thought with that ID' });
+          }
           res.json(thought);
         } catch (err) {
           res.status(500).json(err);
@@ -86,7 +88,7 @@ module.exports = {
       try {
         const thought = await Thought.findOneAndUpdate(
           { _id: req.params.thoughtId },
-          { $addToSet: { reaction: req.body } },
+          { $push: { reaction: req.body } },
           { runValidators: true, new: true }
         );
       
@@ -107,7 +109,7 @@ module.exports = {
         const thought = await Thought.findOneAndUpdate(
           { _id: req.params.thoughtId },
           { $pull: { reactions:{reactionId: req.params.reactionId } }},
-          { runValidators: true, new: true }
+          {new: true }
         );
       
         if (!thought){

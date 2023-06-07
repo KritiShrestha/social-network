@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 const ReactionSchema = require('./reaction');
+const {getformattedTimestamp} = require('../utils/timestamp')
 
 // Construct a new instance of the schema class
 const ThoughtSchema = new mongoose.Schema({
