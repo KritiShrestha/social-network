@@ -1,4 +1,4 @@
-const moment = require('moment')
+const {getFormattedTimestamp}= require ('../utils/timestamp')
 const mongoose = require('mongoose');
 const ReactionSchema = new mongoose.Schema({
     reactionId: {type: mongoose.Types.ObjectId, 
@@ -15,10 +15,9 @@ const ReactionSchema = new mongoose.Schema({
         },
 
         createdAt:{type: Date, 
-                    default: Date.now},
-                    get: function (timeStamp){
-                        return moment(timeStamp).format('YYYY-MM-DD');
-                    }
+                    default: Date.now,
+                    get: getFormattedTimestamp}
+        
 
 });
 module.exports= ReactionSchema;
