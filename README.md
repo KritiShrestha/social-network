@@ -1,6 +1,6 @@
 # social-network-
 ## Description
-This is an application developed to build  for the social media startup. It provides an API by using No SQL database such that the website can handle the huhe unstructured data.
+This is an application developed to build  for the social media startup. It provides an API by using No SQL database such that the website can handle the huge unstructured data.
 
 ## Table of Contents
 - [Technology](#technology)
@@ -16,8 +16,9 @@ Express, Node.js, Insomnia, No SQL,
 
 ## Installation
 Clone this repository https://github.com/KritiShrestha/socialnetwork to your local machine. Open the project in your VS code. Then run the following commands:
-npm init
-npm install the dependencies
+npm i
+npm run seed
+npm start
 
 ## Usage
 Clone this repository on command line. 

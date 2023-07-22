@@ -1,7 +1,6 @@
 
 const mongoose = require('mongoose');
-const ReactionSchema = require('../models/reaction');
-// const {getformattedTimestamp} = require('../utils/timestamp')
+const Reaction  = require('./Reaction');
 
 // Construct a new instance of the schema class
 const ThoughtSchema = new mongoose.Schema({
@@ -14,18 +13,20 @@ const ThoughtSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+    get: (createdAt) => new Date(createdAt).toISOString(),
   },
   username: {
     type: String,
     required: true,
 
   },
-  reactions: [ReactionSchema]
+  reactions: [Reaction.schema]
 },
   {
     toJSON: {
-      getters: true,
+      virtuals: true 
     },
+    toObject: { virtuals: true },
     id: false,
   });
 
@@ -33,6 +34,6 @@ ThoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
-const Thought = ('Thought', ThoughtSchema);
+const Thought = mongoose.model('Thought', ThoughtSchema);
 
 module.exports = Thought;

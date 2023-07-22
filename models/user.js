@@ -1,18 +1,16 @@
 // Require schema and model from mongoose
- const Thought = require('./thought')
-const { Schema, Types } = require('mongoose');
-
+const Thought = require('./Thought')
+const { Schema, model } = require('mongoose');
 
 // Construct a new instance of the schema class
 const UserSchema = new Schema({
     // Configure individual properties using Schema Types
-    Username: {
+    username: {
         type: String,
         required: true,
         unique: true,
         trim: true
     },
-
     email: {
         type: String,
         required: true,
@@ -22,8 +20,6 @@ const UserSchema = new Schema({
             "Please fill a valid email address",
         ],
     },
-
-
     thoughts: [{
         type: Schema.Types.ObjectId,
         ref: 'Thought'
@@ -38,6 +34,7 @@ const UserSchema = new Schema({
      toJson: {
         virtual: true
     },
+    toObject: { virtuals: true },
     id: false,
 });
 
@@ -45,6 +42,6 @@ UserSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });
 
-const User = ('User', UserSchema)
+const User = model('User', UserSchema)
 
 module.exports = User;
