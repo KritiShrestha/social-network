@@ -15,18 +15,14 @@ This is an application developed to build  for the social media startup. It prov
 Express, Node.js, Insomnia, No SQL,  
 
 ## Installation
-Clone this repository https://github.com/KritiShrestha/socialnetwork to your local machine. Open the project in your VS code. Then run the following commands:
-npm i
-npm run seed
-npm start
+Clone this repository https://github.com/KritiShrestha/social-network to your local machine. Open the project in your VS code. Then run the following commands:
+- npm i
+- npm run seed
+- npm start
 
 ## Usage
-Clone this repository on command line. 
-Install dependencies using npm install
-Start the server using the command npm start.
-Use an API testing tool like Insomnia  interact with the backend API.
+The application provides API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. It uses Express.js for routing, a MongoDB database, and the Mongoose ODM
 
-        
 ## Contribution
 Kriti Shrestha
 
