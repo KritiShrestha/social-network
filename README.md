@@ -1,4 +1,4 @@
-# social-network-
+# social-network
 ## Description
 This is an application developed to build  for the social media startup. It provides an API by using No SQL database such that the website can handle the huge unstructured data.
 
